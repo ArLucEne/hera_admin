@@ -1,60 +1,52 @@
 import React, { Component } from 'react';
-import { Table, Pagination, Button, Dialog } from '@alifd/next';
+import { Table, Pagination, Button, Dialog, Message } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import Filter from '../Filter';
+import request from '../../../../utils/fetchUitl';
 
-// Random Numbers
-const random = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
 
 // MOCK 数据，实际业务按需进行替换
-const getData = (length = 10) => {
-  return Array.from({ length }).map(() => {
-    return {
-      name: ['蓝牙音箱', '天猫精灵', '智能机器人'][random(0, 2)],
-      cate: ['数码', '智能'][random(0, 1)],
-      tag: ['新品', '预售'][random(0, 1)],
-      store: ['余杭盒马店', '滨江盒马店', '西湖盒马店'][random(0, 2)],
-      sales: random(1000, 2000),
-      service: ['可预约', '可体验'][random(0, 1)],
-    };
-  });
-};
+
 
 export default class GoodsTable extends Component {
   state = {
     current: 1,
+    size: 10,
     isLoading: false,
     data: [],
   };
 
+  getData = () => {
+    request({
+      url: '/getAll',
+      method: 'GET',
+      params: {
+        pageNum: this.state.current,
+        pageSize: this.state.size,
+      },
+    }).then((res) => {
+      Message.success('提交成功');
+      console.log('------>', res);
+      this.setState({
+        data: res,
+      });
+    });
+  };
   componentDidMount() {
     this.fetchData();
   }
 
-  mockApi = (len) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(getData(len));
-      }, 600);
-    });
-  };
 
-  fetchData = (len) => {
+  fetchData = () => {
     this.setState(
       {
         isLoading: true,
       },
-      () => {
-        this.mockApi(len).then((data) => {
-          this.setState({
-            data,
-            isLoading: false,
-          });
-        });
-      }
     );
+    this.getData();
+    this.setState({
+      isLoading: false,
+    });
   };
 
   handlePaginationChange = (current) => {

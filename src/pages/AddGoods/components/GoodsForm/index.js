@@ -16,7 +16,6 @@ import {
   FormError as IceFormError,
 } from '@icedesign/form-binder';
 import PageHead from '../../../../components/PageHead';
-import { ChartAxisConfig } from '@antv/g2/src';
 import request from '../../../../utils/fetchUitl.js';
 
 
@@ -44,18 +43,17 @@ export default class GoodsForm extends Component {
     this.postForm();
   };
 
-  postForm(){
+  postForm() {
     request({
-      url:'/save',
+      url: '/save',
       method: 'POST',
       data: {
-        "body":this.state.value
-      }
-    }).then(function(res){
+        body: this.state.value,
+      },
+    }).then((res) => {
       Message.success('提交成功');
       console.log(res);
-    })
-    
+    });
   }
 
   render() {
@@ -64,7 +62,7 @@ export default class GoodsForm extends Component {
         <PageHead title="添加商品" />
         <IceContainer style={{ padding: '40px' }}>
           <IceFormBinderWrapper
-            value={this.state.value}    //已经绑定数据
+            value={this.state.value} // 已经绑定数据
             onChange={this.formChange}
             ref="form"
           >
@@ -107,7 +105,7 @@ export default class GoodsForm extends Component {
               </IceFormBinder>
             </div>
 
-            
+
             <div style={styles.formItem}>
               <div style={styles.formLabel}>商品描述：</div>
               <IceFormBinder name="desc">
@@ -131,7 +129,7 @@ export default class GoodsForm extends Component {
                 <NumberPicker />
               </IceFormBinder>
             </div>
-           
+
             <div style={styles.formItem}>
               <div style={styles.formLabel}>商品价格：</div>
               <IceFormBinder name="price" required message="商品价格必填">

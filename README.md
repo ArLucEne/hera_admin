@@ -21,6 +21,5 @@
 - 默认主题：@icedesign/theme
 - 可选主题：@alifd/theme-1
 
-## 效果图
-
-![screenshot](https://img.alicdn.com/tfs/TB1cmQaCZbpK1RjSZFyXXX_qFXa-2872-1580.png)
+## fench跨域请求
+- 封装工具：https://www.jianshu.com/p/4da550ac7f15
