@@ -10,6 +10,7 @@ import OrderList from './pages/OrderList';
 import Goods from './pages/Goods';
 import Membership from './pages/Membership';
 
+import Category from './pages/Category';
 import AddGoods from './pages/AddGoods';
 
 const routerConfig = [
@@ -40,6 +41,10 @@ const routerConfig = [
   {
     path: '/add/goods',
     component: AddGoods,
+  },
+  {
+    path: '/category',
+    component: Category,
   },
 ];
 

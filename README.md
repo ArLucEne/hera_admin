@@ -23,3 +23,4 @@
 
 ## fench跨域请求
 - 封装工具：https://www.jianshu.com/p/4da550ac7f15
+- 沃夫了，这个封装的真的很垃圾，我已经忍不住去他的github上吐槽了

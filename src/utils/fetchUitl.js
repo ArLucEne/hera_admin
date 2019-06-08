@@ -14,38 +14,34 @@ function checkStatus(response) {
   throw error;
 }
 
-export default function request(options = {}) {
-  // const Authorization = localStorage.getItem('access_token')
-  const { data, params } = options;
-  let url = options.url;
-  options = { ...options };
-  options.mode = 'cors';
-  delete options.url;
-  // post请求
-  if (data) {
-    delete options.data;
-    options.body = JSON.stringify({
-      data,
-    });
-  }
-  // get请求
-  if (params) {
-    const paramsArray = [];
-    // 拼接参数
-    Object.keys(params).forEach(key => paramsArray.push(`${key}=${params[key]}`));
-    if (url.search(/\?/) === -1) {
-      url += `?${paramsArray.join('&')}`;
-    } else {
-      url += `&${paramsArray.join('&')}`;
+export default function request(url, method, params) {
+  let requestUrl = url;
+  const body = JSON.stringify(params);
+  const options = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    mode: 'cors',
+  };
+  if (method === 'GET') {
+    if (params) {
+      console.log(params)
+      const paramsArray = [];
+      // 拼接参数
+      Object.keys(params).forEach(key => paramsArray.push(`${key}=${params[key]}`));
+      if (requestUrl.search(/\?/) === -1) {
+        requestUrl += `?${paramsArray.join('&')}`;
+      } else {
+        requestUrl += `&${paramsArray.join('&')}`;
+      }
     }
+  } else {
+    options.body = body;
   }
 
-  options.headers = {
-    // 'Authorization':Authorization,
-    'Content-Type': 'application/json',
-  };
-  return fetch(commonUrl + url, options, { credentials: 'include' })
+  return fetch(commonUrl + requestUrl, options, { credentials: 'include' })
     .then(checkStatus)
     .then(parseJSON)
-    .catch(err => ({ err }));
+    .catch(error => console.error('Error:', error));
 }

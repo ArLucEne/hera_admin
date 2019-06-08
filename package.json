@@ -23,6 +23,7 @@
     "@icedesign/img": "^1.x",
     "@icedesign/layout": "^1.x",
     "@icedesign/theme": "^1.x",
+    "axios": "^0.17.1",
     "bizcharts": "^3.2.2",
     "enquire-js": "^0.1.2",
     "lodash.clonedeep": "^4.5.0",

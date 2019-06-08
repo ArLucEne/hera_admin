@@ -17,42 +17,55 @@ import {
 } from '@icedesign/form-binder';
 import PageHead from '../../../../components/PageHead';
 import request from '../../../../utils/fetchUitl.js';
-
+import {withRouter} from 'react-router-dom'
 
 const { Option } = Select;
 const { Group: RadioGroup } = Radio;
 const { RangePicker } = DatePicker;
 
+@withRouter
 export default class GoodsForm extends Component {
   state = {
     value: {},
+    category: [],
   };
 
   formChange = (value) => {
     console.log('value', value);
   };
 
+  fetchCategory = () => {
+    request('/getAllCategory', 'GET').then((res) => {
+      const datesource = [];
+      if (res.data.length > 0) {
+        res.data.map((category) => {
+          datesource.push({
+            label: category.name,
+            value: category.categoryId,
+            key: category.categoryId,
+          });
+        });
+        this.setState({
+          category: datesource,
+        }
+        );
+      }
+    });
+  };
+
+  componentDidMount() {
+    this.fetchCategory();
+  }
+
   validateAllFormField = () => {
-    // this.refs.form.validateAll((errors, values) => {
-    //   if (errors) {
-    //     return;
-    //   }
-    //   console.log({ values });
-    //   Message.success('提交成功');
-    // });
     this.postForm();
   };
 
   postForm() {
-    request({
-      url: '/save',
-      method: 'POST',
-      data: {
-        body: this.state.value,
-      },
-    }).then((res) => {
+    request('/save', 'POST', this.state.value).then((res) => {
       Message.success('提交成功');
-      console.log(res);
+      this.props.history.push('/goods');
+      
     });
   }
 
@@ -84,14 +97,10 @@ export default class GoodsForm extends Component {
               <IceFormBinder name="categoryId">
                 <Select
                   placeholder="请选择"
-                  mode="multiple"
+                  mode="single"
                   style={{ width: '400px' }}
-                >
-                  <Option value="1">新品</Option>
-                  <Option value="2">数码</Option>
-                  <Option value="3">智能</Option>
-                  <Option value="4">生活</Option>
-                </Select>
+                  dataSource={this.state.category}
+                />
               </IceFormBinder>
             </div>
 

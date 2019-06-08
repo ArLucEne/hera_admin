@@ -50,6 +50,11 @@ const asideMenuConfig = [
     path: '/membership',
     icon: 'menu',
   },
+  {
+    name: '\u5546\u54C1\u79CD\u7C7B',
+    path: '/category',
+    icon: 'home',
+  },
 ];
 
 export { headerMenuConfig, asideMenuConfig };
