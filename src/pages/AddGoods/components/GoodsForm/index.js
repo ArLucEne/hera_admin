@@ -17,7 +17,7 @@ import {
 } from '@icedesign/form-binder';
 import PageHead from '../../../../components/PageHead';
 import request from '../../../../utils/fetchUitl.js';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 const { Option } = Select;
 const { Group: RadioGroup } = Radio;
@@ -35,7 +35,10 @@ export default class GoodsForm extends Component {
   };
 
   fetchCategory = () => {
-    request('/getAllCategory', 'GET').then((res) => {
+    request('/category/findAll', 'GET', {
+      pageNum: 10,
+      pageSize: 10,
+    }).then((res) => {
       const datesource = [];
       if (res.data.length > 0) {
         res.data.map((category) => {
@@ -62,10 +65,9 @@ export default class GoodsForm extends Component {
   };
 
   postForm() {
-    request('/save', 'POST', this.state.value).then((res) => {
+    request('/item/save', 'POST', this.state.value).then((res) => {
       Message.success('提交成功');
       this.props.history.push('/goods');
-      
     });
   }
 
@@ -151,46 +153,6 @@ export default class GoodsForm extends Component {
                 <IceFormError name="price" />
               </div>
             </div>
-            {/* <div style={styles.formItem}>
-              <div style={styles.formLabel}>预售时间：</div>
-              <IceFormBinder name="reverseTime">
-                <RangePicker style={{ width: '400px' }} />
-              </IceFormBinder>
-            </div>
-            <div style={styles.formItem}>
-              <div style={styles.formLabel}>预约条件：</div>
-              <IceFormBinder name="payment">
-                <RadioGroup
-                  dataSource={[
-                    {
-                      value: '1',
-                      label: '需要支付',
-                    },
-                    {
-                      value: '2',
-                      label: '无需支付',
-                    },
-                  ]}
-                />
-              </IceFormBinder>
-            </div>
-            <div style={styles.formItem}>
-              <div style={styles.formLabel}>体验展示：</div>
-              <IceFormBinder name="show">
-                <RadioGroup
-                  dataSource={[
-                    {
-                      value: '1',
-                      label: '展示',
-                    },
-                    {
-                      value: '2',
-                      label: '不展示',
-                    },
-                  ]}
-                />
-              </IceFormBinder>
-            </div> */}
             <Button type="primary" onClick={this.validateAllFormField}>
               提 交
             </Button>

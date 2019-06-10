@@ -21,12 +21,12 @@ export default function request(url, method, params) {
     method,
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
     mode: 'cors',
   };
   if (method === 'GET') {
     if (params) {
-      console.log(params)
       const paramsArray = [];
       // 拼接参数
       Object.keys(params).forEach(key => paramsArray.push(`${key}=${params[key]}`));

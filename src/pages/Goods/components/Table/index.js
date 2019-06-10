@@ -3,7 +3,7 @@ import { Table, Pagination, Button, Dialog, Message } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import Filter from '../Filter';
 import request from '../../../../utils/fetchUitl';
-import ItemDetail from '../Detial'
+import ItemDetail from '../Detial';
 
 // MOCK 数据，实际业务按需进行替换
 
@@ -17,14 +17,14 @@ export default class GoodsTable extends Component {
   };
 
   getData = () => {
-    request('/getAll', 'GET', {
+    request('/item/getAll', 'GET', {
       pageNum: this.state.current,
       pageSize: this.state.size,
     }).then((res) => {
       Message.success('提交成功');
       console.log('------>', res);
       this.setState({
-        data: res.data,
+        data: res.data.list,
       });
     });
   };
@@ -63,7 +63,7 @@ export default class GoodsTable extends Component {
   };
 
   deleteData = (itemId) => {
-    request('/deleteById', 'GET', {itemId:itemId}).then((res) => {
+    request('/item/deleteById', 'GET', { itemId }).then((res) => {
       console.log(res);
     });
   }
@@ -78,8 +78,8 @@ export default class GoodsTable extends Component {
         // console.log(index, this.state.data.indexOf(index));
         this.deleteData(itemId);
         this.setState({
-          data: this.state.data.filter((_, i) => i !== index)
-        })
+          data: this.state.data.filter((_, i) => i !== index),
+        });
       },
     });
   };
@@ -89,7 +89,6 @@ export default class GoodsTable extends Component {
       title: '提示',
       content: '暂不支持查看详情',
     });
-    Dialog.alert()
   };
   // value不能删
   renderOper = (value, index) => {
