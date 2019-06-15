@@ -6,7 +6,6 @@ import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
 import Dashboard from './pages/Dashboard';
 
-import OrderList from './pages/OrderList';
 import Goods from './pages/Goods';
 import Membership from './pages/Membership';
 
@@ -29,10 +28,6 @@ const routerConfig = [
   {
     path: '/goods',
     component: Goods,
-  },
-  {
-    path: '/order',
-    component: OrderList,
   },
   {
     path: '/membership',

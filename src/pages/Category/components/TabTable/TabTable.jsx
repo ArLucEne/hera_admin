@@ -97,19 +97,12 @@ export default class TabTable extends Component {
     return (
       <div className="tab-table">
         <IceContainer>
-          <Tab onChange={this.handleTabChange}>
-            {tabs.map((item) => {
-              return (
-                <TabPane title={item.tab} key={item.key}>
-                  <CustomTable
+            <CustomTable
                     dataSource={dataSource[this.state.tabKey]}
                     columns={this.columns}
                     hasBorder={false}
-                  />
-                </TabPane>
-              );
-            })}
-          </Tab>
+           />
+                
         </IceContainer>
       </div>
     );

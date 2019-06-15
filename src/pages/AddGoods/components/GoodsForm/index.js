@@ -35,10 +35,7 @@ export default class GoodsForm extends Component {
   };
 
   fetchCategory = () => {
-    request('/category/findAll', 'GET', {
-      pageNum: 10,
-      pageSize: 10,
-    }).then((res) => {
+    request('/category/findAll', 'GET').then((res) => {
       const datesource = [];
       if (res.data.length > 0) {
         res.data.map((category) => {
@@ -96,7 +93,7 @@ export default class GoodsForm extends Component {
 
             <div style={styles.formItem}>
               <div style={styles.formLabel}>商品所属种类：</div>
-              <IceFormBinder name="categoryId">
+              <IceFormBinder name="cId">
                 <Select
                   placeholder="请选择"
                   mode="single"
@@ -108,7 +105,7 @@ export default class GoodsForm extends Component {
 
             <div style={styles.formItem}>
               <div style={styles.formLabel}>商品卖点：</div>
-              <IceFormBinder name="point">
+              <IceFormBinder name="sellPoint">
                 <Input
                   placeholder="请输入商品卖点"
                   style={{ width: '400px' }}
@@ -119,7 +116,7 @@ export default class GoodsForm extends Component {
 
             <div style={styles.formItem}>
               <div style={styles.formLabel}>商品描述：</div>
-              <IceFormBinder name="desc">
+              <IceFormBinder name="description">
                 <Input.TextArea
                   placeholder="请描述商品"
                   style={{ width: '400px' }}
@@ -136,7 +133,7 @@ export default class GoodsForm extends Component {
 
             <div style={styles.formItem}>
               <div style={styles.formLabel}>限买数量：</div>
-              <IceFormBinder name="saleNum" required message="必填">
+              <IceFormBinder name="limitNum" required message="必填">
                 <NumberPicker />
               </IceFormBinder>
             </div>

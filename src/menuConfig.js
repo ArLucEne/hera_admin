@@ -42,11 +42,6 @@ const asideMenuConfig = [
   },
   {
     name: '订单管理',
-    path: '/order',
-    icon: 'shopcar',
-  },
-  {
-    name: '会员管理',
     path: '/membership',
     icon: 'menu',
   },

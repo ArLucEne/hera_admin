@@ -12,7 +12,7 @@ export default class Category extends Component {
     return (
       <div className="category-page">
         {/* 展示详情信息的表格 */}
-        <DetailTable />
+        {/* <DetailTable /> */}
 
         <TabTable />
       </div>

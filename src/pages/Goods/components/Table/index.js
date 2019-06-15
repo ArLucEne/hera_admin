@@ -11,20 +11,18 @@ import ItemDetail from '../Detial';
 export default class GoodsTable extends Component {
   state = {
     current: 1,
+    total:0,
     size: 10,
     isLoading: false,
     data: [],
   };
 
   getData = () => {
-    request('/item/getAll', 'GET', {
-      pageNum: this.state.current,
-      pageSize: this.state.size,
-    }).then((res) => {
+    request('/item/getAllItems', 'GET').then((res) => {
       Message.success('提交成功');
       console.log('------>', res);
       this.setState({
-        data: res.data.list,
+        data: res.data,
       });
     });
   };
@@ -48,9 +46,10 @@ export default class GoodsTable extends Component {
   };
 
   handlePaginationChange = (current) => {
+    let temp = current+1;
     this.setState(
       {
-        current,
+        current:temp,
       },
       () => {
         this.fetchData();
@@ -109,21 +108,21 @@ export default class GoodsTable extends Component {
   };
 
   render() {
-    const { isLoading, data, current } = this.state;
+    const { isLoading, data, current ,total} = this.state;
 
     return (
       <div style={styles.container}>
-        <IceContainer>
+        {/* <IceContainer>
           <Filter onChange={this.handleFilterChange} />
-        </IceContainer>
+        </IceContainer> */}
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
             <Table.Column title="商品名称" dataIndex="name" />
-            <Table.Column title="商品分类" dataIndex="categoryId" />
-            <Table.Column title="商品标签" dataIndex="point" />
+            <Table.Column title="商品分类" dataIndex="itemCatName" />
+            <Table.Column title="商品卖点" dataIndex="description" />
             <Table.Column title="商品库存" dataIndex="num" />
             <Table.Column title="商品价格" dataIndex="price" />
-            <Table.Column title="商品状态" dataIndex="status" />
+            <Table.Column title="商品状态" dataIndex="status"/>
             <Table.Column
               title="操作"
               width={200}
@@ -131,12 +130,14 @@ export default class GoodsTable extends Component {
               cell={this.renderOper}
             />
           </Table>
-          <Pagination
+          {/* <Pagination
             style={styles.pagination}
             type="simple"
+            total={total}
             current={current}
+            pageSize = {5}
             onChange={this.handlePaginationChange}
-          />
+          /> */}
         </IceContainer>
       </div>
     );
